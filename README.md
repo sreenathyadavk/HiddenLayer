@@ -1,336 +1,243 @@
-# HiddenLayer — Production-Grade Deepfake Detection
+# HiddenLayer - AI-Powered Deepfake Detection
 
-**Real-time on-device video authentication using multi-stage AI pipeline.**
+<p align="center">
+  <img src="https://img.shields.io/badge/Android-34-green?logo=android" alt="Android"/>
+  <img src="https://img.shields.io/badge/Kotlin-1.9-purple?logo=kotlin" alt="Kotlin"/>
+  <img src="https://img.shields.io/badge/TensorFlow%20Lite-2.14-orange?logo=tensorflow" alt="TFLite"/>
+  <img src="https://img.shields.io/badge/Jetpack%20Compose-1.5-blue?logo=jetpackcompose" alt="Compose"/>
+  <img src="https://img.shields.io/badge/Status-Active-success" alt="Status"/>
+</p>
 
-> ⚠️ **Important**: This is a production-oriented security application, not a student demo. It uses uncertainty-aware analysis and never claims 100% accuracy.
+Real-time deepfake detection Android application using advanced multi-modal fusion techniques for identifying AI-generated or manipulated media.
 
----
+## ✨ Key Features
 
-## Overview
+- 🎥 **Real-time Camera Analysis** - Live deepfake detection through device camera
+- 📺 **Screen Share Detection** - Analyze screen content in real-time  
+- 📁 **Media File Scanner** - Batch analysis of local images and videos
+- 🧠 **Multi-Modal Fusion** - Combines CNN inference, artifact detection, and provenance analysis
+- ⚡ **Optimized Performance** - TensorFlow Lite with XNNPACK CPU acceleration
+- 🔒 **Privacy-First Design** - 100% on-device processing, zero cloud uploads
 
-HiddenLayer is an Android application that verifies the authenticity of video calls and shared media using **on-device AI**. The system runs entirely on your phone with zero cloud dependency, analyzing video in real-time through an 8-stage pipeline.
-
-### Key Features
-
-✅ **Fully on-device** — No cloud inference, complete privacy  
-✅ **Real-time analysis** — 15-30 FPS processing with adaptive degradation  
-✅ **Multi-signal detection** — Biomechanical + Deep Learning + Temporal analysis  
-✅ **Uncertainty-aware** — Four result categories (Authentic/Suspicious/Inconclusive/Likely Deepfake)  
-✅ **Thermal-aware** — Graceful performance degradation to prevent overheating  
-✅ **Production-grade** — Clean architecture, modular code, extensive comments
-
----
-
-## Technical Architecture
-
-### 8-Stage Pipeline
+## 🏗️ Architecture
 
 ```
-Input Sources (Camera/Screen/Media)
-        ↓
-[1] Signal Quality Gating ← FPS, resolution, compression assessment
-        ↓
-[2] Biomechanical Analysis (High-FPS) ← Eye blinks, head pose, optical flow
-        ↓
-[3] Adaptive CNN (Keyframes Only) ← EfficientNet-Lite0 feature extraction
-        ↓
-[4] Temporal Modeling ← Sliding window consistency check
-        ↓
-[5] Ensemble Decision ← Dynamic fusion with conflict detection
-        ↓
-[6] Uncertainty Suppression ← Cap confidence at 95%
-        ↓
-[7] Result Classification ← Four categories, no over-promises
-        ↓
-[8] Real-Time UI ← Jetpack Compose overlayStack
+┌──────────────────────────────────────────────┐
+│          Presentation Layer                  │
+│        Jetpack Compose + Material3           │
+├──────────────────────────────────────────────┤
+│           Domain Layer (Business Logic)      │
+│  ┌─────────────┐  ┌──────────────────────┐  │
+│  │ CNN Model   │  │ Artifact Detector    │  │
+│  │ (TFLite)    │  │ (Signal Processing)  │  │
+│  └─────────────┘  └──────────────────────┘  │
+│  ┌──────────────────────────────────────┐   │
+│  │   Detection Fusion Engine            │   │
+│  │   (Multi-modal Decision Making)      │   │
+│  └──────────────────────────────────────┘   │
+├──────────────────────────────────────────────┤
+│            Data Layer (Sources)              │
+│    CameraX  •  MediaProjection  •  Storage   │
+└──────────────────────────────────────────────┘
 ```
 
-### AI Strategy
+## 🎯 Detection Methods
 
-**Model**: EfficientNet-Lite0 (TensorFlow Lite, FP16 quantized)  
-**Role**: Feature extractor + confidence estimator (NOT standalone classifier)  
-**Innovation**: Temporal + multi-signal fusion, not training from scratch  
-**Acceleration**: NNAPI + GPU delegate when available
+### 1. **CNN Deep Learning**
+- Custom trained model (88MB)
+- Input: 299x299 RGB images
+- Binary classification: Real vs Fake
 
-### Tech Stack
+### 2. **Artifact Analysis**
+- Banding detection (compression artifacts)
+- Edge inconsistency analysis
+- Frequency domain analysis
 
-| Layer | Technology |
-|-------|-----------|
-| **Platform** | Android (API 29+), Kotlin |
-| **UI** | Jetpack Compose, Material 3 |
-| **Camera** | CameraX (live feed) |
-| **Screen Capture** | MediaProjection API |
-| **Face Detection** | MediaPipe Face Mesh (468 landmarks) |
-| **Motion Analysis** | OpenCV (Farneback optical flow) |
-| **AI Inference** | TensorFlow Lite 2.14 |
+### 3. **Provenance Checking**
+- EXIF metadata inspection
+- AI signature detection
+- Creation tool identification
+
+### 4. **Fusion Engine**
+- Combines all signals with weighted confidence
+- Adaptive thresholding
+- Temporal consistency validation
+
+## 🚀 Tech Stack
+
+| Component | Technology |
+|-----------|-----------|
+| **Language** | Kotlin |
+| **UI Framework** | Jetpack Compose + Material3 |
+| **ML Inference** | TensorFlow Lite 2.14 |
+| **Camera** | CameraX 1.3 |
+| **Architecture** | Clean Architecture (MVVM) |
 | **Async** | Kotlin Coroutines + Flow |
+| **DI** | Manual (lightweight) |
 
----
+## 📦 Model Details
 
-## Project Structure
+- **File:** `app/src/main/assets/deepfake_net.tflite`
+- **Size:** 88MB
+- **Architecture:** Custom CNN with 105 operations
+- **Delegation:** XNNPACK (CPU optimized)
+- **Input Shape:** `[1, 299, 299, 3]`
+- **Output Shape:** `[1, 2]` (fake_probability, real_probability)
 
-```
-HiddenLayer/
-├── app/                    # Main application module
-│   ├── AndroidManifest.xml
-│   ├── MainActivity.kt
-│   └── HiddenLayerApp.kt
-│
-├── core/                   # Utilities, constants, shared logic
-│   ├── Constants.kt        # Pipeline configuration
-│   ├── ThermalMonitor.kt   # Device thermal management
-│   └── PrivacyGuard.kt     # Privacy-first utilities
-│
-├── data/                   # Data models and sources
-│   ├── models/
-│   │   └── FrameModels.kt  # Metadata, scores, signal quality
-│   └── sources/
-│       ├── CameraFrameSource.kt
-│       ├── ScreenCaptureSource.kt
-│       └── MediaFileSource.kt
-│
-├── domain/                 # Business logic (pipeline stages)
-│   ├── models/
-│   │   └── AnalysisResult.kt
-│   └── usecases/
-│       ├── SignalQualityAnalyzer.kt
-│       ├── BiomechanicalAnalyzer.kt
-│       ├── KeyframeSelector.kt
-│       ├── CNNFeatureExtractor.kt
-│       ├── TemporalAnalyzer.kt
-│       └── EnsembleDecisionEngine.kt
-│
-└── presentation/           # UI (Jetpack Compose)
-    ├── theme/
-    ├── camera/
-    │   └── CameraScreen.kt
-    └── components/
-        └── ConfidenceIndicator.kt
-```
-
----
-
-## Performance Characteristics
-
-### Device Tier Expectations
-
-| Device Tier | Performance | Notes |
-|------------|-------------|-------|
-| **Flagship** (SD 8xx, 8GB+) | ✅ Excellent | 30 FPS, <80ms CNN latency |
-| **Mid-range** (SD 6xx/7xx, 4-6GB) | ⚠️ Good | 20-25 FPS, adaptive CNN |
-| **Budget** (SD 4xx, 3GB) | ❌ Struggles | Requires "Lite Mode" |
-
-**Minimum recommended**: Snapdragon 660, 4GB RAM, Android 10+ (2020 or later)
-
-### Adaptive Performance
-
-- **CNN runs 2-5 times/second** (not every frame) → 80-90% reduction in compute
-- **Thermal throttling** → Degrades gracefully instead of crashing
-- **Backpressure handling** → No frame drops at ingestion
-- **Signal quality gating** → Low-quality inputs flagged early
-
----
-
-## What This App Does NOT Do
-
-❌ **Train from scratch** — Uses pretrained EfficientNet-Lite0  
-❌ **Promise 100% accuracy** — Uncertainty-aware, admits limitations  
-❌ **Intercept WhatsApp/Meet** — User-initiated screen capture only  
-❌ **Send data to cloud** — Fully on-device processing  
-❌ **Store frames** — Memory-only, immediate cleanup
-
----
-
-## Build Instructions
+## 🔧 Building from Source
 
 ### Prerequisites
-
-- Android Studio Hedgehog or later
+- Android Studio Hedgehog or newer
+- JDK 17+
 - Android SDK 34
-- Kotlin 1.9.22
-- Gradle 8.2.1
+- Gradle 8.2+
 
 ### Build Steps
 
 ```bash
 # Clone repository
-git clone <repository-url>
+git clone git@github.com:sreenathyadavk/HiddenLayer.git
 cd HiddenLayer
 
-# Sync Gradle dependencies
-./gradlew build
+# Build debug APK
+./gradlew assembleDebug
 
-# Run on connected device/emulator
-./gradlew installDebug
+# Output location
+# app/build/outputs/apk/debug/app-debug.apk
 
-# Run tests
-./gradlew test
-./gradlew connectedAndroidTest
+# Install via ADB
+adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
-### Model Setup
+### Release Build
 
-The pretrained `.tflite` model should be placed in:
-```
-app/src/main/assets/efficientnet_lite0_fp16.tflite
-```
-
-**Download**: TensorFlow Hub → EfficientNet-Lite0  
-**Conversion** (Python):
-```python
-import tensorflow as tf
-import tensorflow_hub as hub
-
-model = hub.load("https://tfhub.dev/google/efficientnet/lite0/feature_vector/2")
-converter = tf.lite.TFLiteConverter.from_saved_model(model)
-converter.optimizations = [tf.lite.Optimize.DEFAULT]
-converter.target_spec.supported_types = [tf.float16]
-tflite_model = converter.convert()
-
-with open('efficientnet_lite0_fp16.tflite', 'wb') as f:
-    f.write(tflite_model)
+```bash
+./gradlew assembleRelease
+# APK: app/build/outputs/apk/release/app-release.apk
 ```
 
----
+## 📱 System Requirements
 
-## Current Implementation Status
+- **OS:** Android 8.0 (API 26) or higher
+- **RAM:** 4GB+ recommended (2GB minimum)
+- **Storage:** 150MB for app + models
+- **Permissions:** 
+  - Camera (for live analysis)
+  - Storage (for media file scanning)
 
-### ✅ Implemented
+## 🎮 Usage
 
-- Multi-module Gradle project structure
-- Core data models (FrameMetadata, SignalQuality, AnalysisResult)
-- Signal Quality Analyzer
-- Adaptive Keyframe Selector
-- Ensemble Decision Engine with uncertainty suppression
-- Thermal Monitor (adaptive degradation)
-- Privacy Guard (memory-only processing)
-- Jetpack Compose UI (camera preview, confidence indicator)
-- Material 3 theming
+### Live Camera Detection
+1. Open app → Select "Camera" mode
+2. Grant camera permissions
+3. Point camera at subject
+4. Real-time confidence score displayed
 
-### 🚧 Remaining Work
+### Media File Analysis
+1. Select "Media File" mode
+2. Choose image/video from gallery
+3. View detailed analysis results
 
-The core architecture is in place, but these modules need implementation:
+### Screen Share Detection
+1. Select "Screen Share" mode
+2. Grant screen recording permission
+3. Share any app screen for analysis
 
-1. **MediaPipe Integration** (`BiomechanicalAnalyzer.kt`)
-   - Face detection + tracking
-   - 468 landmark extraction
-   - Eye blink, mouth motion, head pose analysis
+## 📊 Current Status
 
-2. **OpenCV Integration** (`MotionAnalyzer.kt`)
-   - Farneback optical flow
-   - Boundary coherence checking
-   - Motion entropy calculation
+| Feature | Status |
+|---------|--------|
+| Screen Share Detection | ✅ Operational |
+| Media File Analysis | ✅ Operational |
+| Live Camera Detection | 🚧 Under Optimization |
+| Batch Processing | 📝 Planned |
 
-3. **TFLite Inference** (`CNNFeatureExtractor.kt`)
-   - Model loading with NNAPI/GPU delegate
-   - Penultimate layer embedding extraction
-   - Uncertainty quantification
+## 📈 Performance
 
-4. **Temporal Analysis** (`TemporalAnalyzer.kt`)
-   - Sliding window buffer
-   - Time-normalized aggregation
-   - 1D temporal convolution
+- **Frame Processing:** ~150-200ms per frame
+- **Throughput:** 5-7 FPS (real-time camera)|
+- **Memory Usage:** ~256MB peak
+- **Battery Impact:** Moderate (camera + ML inference)
 
-5. **Pipeline Integration** (`FramePipeline.kt`)
-   - Coroutine-based async processing
-   - Backpressure handling
-   - End-to-end frame flow
+## 🔐 Privacy & Security
 
-6. **Input Sources**
-   - CameraX frame capture (partial)
-   - MediaProjection screen share
-   - Media file extraction
+- ✅ All processing happens on-device
+- ✅ No internet connection required
+- ✅ No data uploaded to servers
+- ✅ No user tracking or analytics
+- ✅ Full source code transparency
 
----
+## 🗂️ Project Structure
 
-## Testing Strategy
+```
+HiddenLayer/
+├── app/                    # Android application module
+├── core/                   # Shared utilities and constants
+├── data/                   # Data layer (frame sources)
+├── domain/                 # Business logic
+│   ├── models/            # Data models
+│   ├── pipeline/          # Processing pipeline
+│   └── usecases/          # Detection algorithms
+├── presentation/           # UI layer (Compose)
+└── apks/                   # Versioned APK releases
+```
 
-### Unit Tests
-- Signal quality scoring logic
-- Ensemble decision weights
-- Keyframe selection triggers
-- Thermal degradation thresholds
+## 📦 APK Releases
 
-### Integration Tests
-- CameraX frame capture
-- TFLite model loading
-- MediaPipe face detection
-- End-to-end pipeline latency
+Versioned APKs are available in the `/apks` folder:
 
-### Manual Testing
-- Real camera feed with authentic face
-- Screen share of video call
-- Known deepfake samples (FaceForensics++)
-- Sustained load (10+ minutes)
-- Thermal throttling behavior
+- `apks/v1.0.0.apk` - Initial release
+- `apks/v1.1.0.apk` - Camera optimization
+- Check folder for latest versions
 
----
+## 🤝 Contributing
 
-## Privacy & Security
+This is an academic/research project. Contributions, issues, and feature requests are welcome!
 
-🔒 **Privacy-First Design**:
-- All processing happens on-device
-- No frames stored or persisted
-- No cloud inference
-- No screenshots of analysis
-- Immediate bitmap recycling
-- FLAG_SECURE on sensitive screens
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-🛡️ **Security Principles**:
-- Honest uncertainty communication
-- No false confidence claims
-- Multi-signal verification
-- Attack-aware decision logic
+## 📄 License
 
----
+```
+MIT License
 
-## Why This Architecture Works
+Copyright (c) 2026 Sreenath Yadav K
 
-1. **Signal Quality Gating** — Garbage-in-garbage-out prevention
-2. **Adaptive CNN** — Battery-friendly, real-time feasible
-3. **Temporal Analysis** — Catches frame-to-frame inconsistencies
-4. **Dynamic Ensemble** — No single point of failure
-5. **Uncertainty-Aware** — Increases attacker cost without false promises
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
----
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-## Production-Grade Principles
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED.
+```
 
-✅ **Clean separation of concerns** — Modular architecture  
-✅ **Comments explain WHY** — Not just WHAT  
-✅ **Thermal-aware degradation** — No device overheating  
-✅ **Backpressure handling** — No frame drops at source  
-✅ **Privacy-first** — No data persistence  
-✅ **Demo-safe** — No crashes, graceful degradation  
+## 👨‍💻 Author
 
-**This is startup security product code, not a research prototype.**
+**Sreenath Yadav K**  
+GitHub: [@sreenathyadavk](https://github.com/sreenathyadavk)
 
----
+## 📚 Research & References
 
-## License
+This project implements concepts from:
+- DeepFake detection research papers
+- CNN-based image forensics
+- Multi-modal fusion techniques
+- Artifact analysis in compressed media
 
-Apache 2.0 (placeholder — update as needed)
+## ⚠️ Disclaimer
 
----
-
-## Contributing
-
-This is a production-grade security application. Contributions should:
-- Include detailed comments explaining WHY
-- Follow Kotlin coding conventions
-- Add unit tests for business logic
-- Preserve privacy-first principles
-- Maintain uncertainty-aware results
+This is an academic/research project for educational purposes. For production use in critical applications, additional validation, testing, and certifications are recommended.
 
 ---
 
-## Acknowledgments
-
-- **MediaPipe** — Face detection + landmarks
-- **TensorFlow Lite** — On-device inference
-- **OpenCV** — Optical flow analysis
-- **EfficientNet-Lite** — Pretrained CNN backbone
-
----
-
-**Think like a security startup, not a student.**
+<p align="center">Made with ❤️ for a safer digital world</p>

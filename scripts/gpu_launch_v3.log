@@ -1,7 +1,0 @@
-==========================================
-GPU VERIFICATION (TF 2.17)
-==========================================
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-AttributeError: module 'tensorflow' has no attribute '__version__'
-❌ Failed.

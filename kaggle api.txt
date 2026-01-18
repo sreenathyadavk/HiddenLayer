@@ -1,3 +1,0 @@
-kaggle competitions list
-export KAGGLE_API_TOKEN=KGAT_a0e47466be9a5de9ac5b0e203f5e42c0
-KGAT_a0e47466be9a5de9ac5b0e203f5e42c0
