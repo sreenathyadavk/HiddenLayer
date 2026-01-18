@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HiddenLayer</string>
+    <string name="camera_permission_required">Camera permission is required for real-time analysis</string>
+    <string name="privacy_notice">All analysis happens on your device. No data is sent to servers.</string>
+</resources>

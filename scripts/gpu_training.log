@@ -1,0 +1,17 @@
+2026-01-17 16:50:48.432368: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-01-17 16:50:50.490698: E external/local_xla/xla/stream_executor/cuda/cuda_platform.cc:51] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: CUDA_ERROR_UNKNOWN: unknown error
+2026-01-17 16:50:50.490724: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:160] env: CUDA_VISIBLE_DEVICES="0"
+2026-01-17 16:50:50.490729: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:171] verbose logging is disabled. Rerun with verbose logging (usually --v=1 or --vmodule=cuda_diagnostics=1) to get more diagnostic output from this module
+2026-01-17 16:50:50.490733: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:176] retrieving CUDA diagnostic information for host: debian
+2026-01-17 16:50:50.490736: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:183] hostname: debian
+2026-01-17 16:50:50.490826: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:190] libcuda reported version is: 550.163.1
+2026-01-17 16:50:50.490846: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:194] kernel reported version is: 550.163.1
+2026-01-17 16:50:50.490850: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:284] kernel version seems to match DSO: 550.163.1
+======================================================================
+  RTX 3060 GPU-ACCELERATED TRAINING
+  Full Power (170W Max)
+======================================================================
+🚀 RTX 3060 GPU SETUP
+❌ NO GPU DETECTED!
+   This script requires RTX 3060

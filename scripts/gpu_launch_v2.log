@@ -1,0 +1,9 @@
+==========================================
+GPU VERIFICATION
+==========================================
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+AttributeError: module 'tensorflow' has no attribute 'config'
+./launch_gpu_training.sh: line 25: [: : integer expression expected
+❌ GPU Init Failed. GPU Count: 
+   Stopping.

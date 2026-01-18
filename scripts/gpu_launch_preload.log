@@ -1,0 +1,39 @@
+Preloading: /usr/lib/x86_64-linux-gnu/libcuda.so.1
+==========================================
+🚀 GPU LAUNCHER (FINAL ATTEMPT)
+   LD_PRELOAD FIX ACTIVE
+==========================================
+2026-01-17 17:21:49.620481: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-01-17 17:21:49.631072: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-01-17 17:21:49.634512: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-01-17 17:21:49.643630: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-01-17 17:21:50.338885: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2026-01-17 17:21:50.781590: E external/local_xla/xla/stream_executor/cuda/cuda_driver.cc:266] failed call to cuInit: CUDA_ERROR_UNKNOWN: unknown error
+2026-01-17 17:21:50.781618: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:135] retrieving CUDA diagnostic information for host: debian
+2026-01-17 17:21:50.781627: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:142] hostname: debian
+2026-01-17 17:21:50.781681: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:166] libcuda reported version is: 550.163.1
+2026-01-17 17:21:50.781714: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:170] kernel reported version is: 550.163.1
+2026-01-17 17:21:50.781721: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:249] kernel version seems to match DSO: 550.163.1
+TF Version: 2.17.0
+GPUs: []
+✅ Launching Training process on GPU...
+2026-01-17 17:21:51.380615: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-01-17 17:21:51.391436: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-01-17 17:21:51.394635: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-01-17 17:21:51.403658: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-01-17 17:21:52.027635: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2026-01-17 17:21:52.419512: E external/local_xla/xla/stream_executor/cuda/cuda_driver.cc:266] failed call to cuInit: CUDA_ERROR_UNKNOWN: unknown error
+2026-01-17 17:21:52.419534: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:135] retrieving CUDA diagnostic information for host: debian
+2026-01-17 17:21:52.419540: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:142] hostname: debian
+2026-01-17 17:21:52.419573: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:166] libcuda reported version is: 550.163.1
+2026-01-17 17:21:52.419591: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:170] kernel reported version is: 550.163.1
+2026-01-17 17:21:52.419595: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:249] kernel version seems to match DSO: 550.163.1
+======================================================================
+  RTX 3060 GPU-ACCELERATED TRAINING
+  Full Power (170W Max)
+======================================================================
+🚀 RTX 3060 GPU SETUP
+❌ NO GPU DETECTED!
+   This script requires RTX 3060

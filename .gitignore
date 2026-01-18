@@ -1,0 +1,29 @@
+# Build outputs
+.gradle/
+*/build/
+build/
+*.apk
+*.ap_
+*.dex
+
+# IDE settings (can regenerate)
+.idea/workspace.xml
+.idea/tasks.xml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python (exclude venv - too large, 70K files!)
+venv/
+__pycache__/
+*.pyc
+
+# Large datasets (exclude from Git)
+scripts/archive.zip
+
+# KEEP FOR DEV BRANCH:
+# ✅ All 3 model files (88MB + 44MB + 44MB)
+# ✅ kaggle api.txt (API keys)
+# ✅ scripts/ folder (training notebooks)
+# ✅ All other files

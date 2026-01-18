@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Shield shape representing security -->
+    <path
+        android:fillColor="#6200EE"
+        android:pathData="M54,20 L54,20 C64,24 74,24 84,20 L84,50 C84,64 74,74 54,88 C34,74 24,64 24,50 L24,20 C34,24 44,24 54,20 Z"/>
+    
+    <!-- Eye symbol -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,44 C62,44 70,48 70,54 C70,60 62,64 54,64 C46,64 38,60 38,54 C38,48 46,44 54,44 Z M54,50 C50,50 48,52 48,54 C48,56 50,58 54,58 C58,58 60,56 60,54 C60,52 58,50 54,50 Z"/>
+</vector>

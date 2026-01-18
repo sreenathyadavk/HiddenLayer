@@ -1,0 +1,29 @@
+==========================================
+🚀 GPU LAUNCHER (RTX 3060)
+   TF 2.17 + CUDA 12
+==========================================
+2026-01-17 17:20:19.928943: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-01-17 17:20:19.939283: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-01-17 17:20:19.942839: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-01-17 17:20:19.951523: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-01-17 17:20:21.564443: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2026-01-17 17:20:24.044728: E external/local_xla/xla/stream_executor/cuda/cuda_driver.cc:266] failed call to cuInit: CUDA_ERROR_UNKNOWN: unknown error
+2026-01-17 17:20:24.044751: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:135] retrieving CUDA diagnostic information for host: debian
+2026-01-17 17:20:24.044757: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:142] hostname: debian
+2026-01-17 17:20:24.044817: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:166] libcuda reported version is: 550.163.1
+2026-01-17 17:20:24.044839: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:170] kernel reported version is: 550.163.1
+2026-01-17 17:20:24.044846: I external/local_xla/xla/stream_executor/cuda/cuda_diagnostics.cc:249] kernel version seems to match DSO: 550.163.1
+TF Version: 2.17.0
+GPUs: []
+✅ GPU Verified. Starting Training...
+2026-01-17 17:20:24.796258: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-01-17 17:20:24.807007: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-01-17 17:20:24.810395: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-01-17 17:20:24.819293: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-01-17 17:20:25.446787: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Traceback (most recent call last):
+  File "/media/sreenath/kannaDisk/iitproject/HiddenLayer/scripts/train_gpu_full_power.py", line 25, in <module>
+    from keras.preprocessing.image import ImageDataGenerator
+ImportError: cannot import name 'ImageDataGenerator' from 'keras.preprocessing.image' (/media/sreenath/kannaDisk/iitproject/HiddenLayer/venv/lib/python3.11/site-packages/keras/preprocessing/image/__init__.py)
