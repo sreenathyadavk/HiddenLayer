@@ -236,7 +236,7 @@ This project implements concepts from:
 
 ## ⚠️ Disclaimer
 
-This is an academic/research project for educational purposes. For production use in critical applications, additional validation, testing, and certifications are recommended.
+This is an research project for educational purposes. For production use in critical applications, additional validation, testing, and certifications are recommended.
 
 ---
 
